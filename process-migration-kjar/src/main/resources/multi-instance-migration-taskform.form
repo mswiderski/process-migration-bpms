@@ -1,0 +1,84 @@
+
+<form id="146888267">
+<property name="name" value="multi-instance-migration-taskform.form"/>
+<property name="displayMode" value="default"/>
+<property name="status" value="0"/>
+<field position="0" name=":decorator_0" type="HTMLLabel" id="788672037">
+<property name="fieldRequired" value="false"/>
+<property name="groupWithPrevious" value="false"/>
+<property name="readonly" value="false"/>
+<property name="htmlContent" value="quot;caquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;dequot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;enquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;esquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;frquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;jaquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;ptquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;quot;zhquot;,quot;&lt;p&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;Enter details about deployment and process id for&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;line-height: 20.8px;&quot;&gt;instances &lt;/span&gt;that should be migrated from&lt;/p&gt; quot;"/>
+<property name="fieldClass" value="HTMLlabel"/>
+</field>
+<field position="1" name="processData_deploymentId" type="InputText" id="927330281">
+<property name="fieldRequired" value="true"/>
+<property name="label" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;Deployment id (from)quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="errorMessage" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="title" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="readonly" value="false"/>
+<property name="isHTML" value="false"/>
+<property name="hideContent" value="false"/>
+<property name="outputBinding" value="processData/deploymentId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="2" name="processData_fromProcessId" type="InputText" id="663754810">
+<property name="fieldRequired" value="true"/>
+<property name="groupWithPrevious" value="true"/>
+<property name="label" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;Process id (from)quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="errorMessage" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="title" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="readonly" value="false"/>
+<property name="isHTML" value="false"/>
+<property name="hideContent" value="false"/>
+<property name="outputBinding" value="processData/fromProcessId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="3" name=":decorator_1" type="Separator" id="242180626">
+<property name="fieldRequired" value="false"/>
+<property name="groupWithPrevious" value="false"/>
+<property name="readonly" value="false"/>
+<property name="fieldClass" value="Separator"/>
+</field>
+<field position="4" name=":decorator_2" type="HTMLLabel" id="2043351983">
+<property name="fieldRequired" value="false"/>
+<property name="groupWithPrevious" value="false"/>
+<property name="readonly" value="false"/>
+<property name="htmlContent" value="quot;caquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;dequot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;enquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;esquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;frquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;jaquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;ptquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;quot;zhquot;,quot;&lt;p&gt;Enter details about deployment and process id for&amp;nbsp;instances that should be migrated to&lt;/p&gt; quot;"/>
+<property name="fieldClass" value="HTMLlabel"/>
+</field>
+<field position="5" name="processData_toDeploymentId" type="InputText" id="917108528">
+<property name="fieldRequired" value="true"/>
+<property name="groupWithPrevious" value="false"/>
+<property name="label" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;Deployment id (to)quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="errorMessage" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="title" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="readonly" value="false"/>
+<property name="isHTML" value="false"/>
+<property name="hideContent" value="false"/>
+<property name="outputBinding" value="processData/toDeploymentId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="6" name="processData_toProcessId" type="InputText" id="1090571898">
+<property name="fieldRequired" value="true"/>
+<property name="groupWithPrevious" value="true"/>
+<property name="label" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;Process id (to)quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="errorMessage" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="title" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="readonly" value="false"/>
+<property name="isHTML" value="false"/>
+<property name="hideContent" value="false"/>
+<property name="outputBinding" value="processData/toProcessId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="7" name="1372726563" type="CheckBox" id="1372726563">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;SSClassquot;,quot;quot;quot;SSStylequot;,quot;quot;quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;Requires node mapping?quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="errorMessage" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="title" value="quot;caquot;,quot;quot;quot;dequot;,quot;quot;quot;enquot;,quot;quot;quot;esquot;,quot;quot;quot;frquot;,quot;quot;quot;jaquot;,quot;quot;quot;ptquot;,quot;quot;quot;zhquot;,quot;quot;"/>
+<property name="readonly" value="false"/>
+<property name="outputBinding" value="nodeMapping"/>
+<property name="fieldClass" value="java.lang.Boolean"/>
+</field>
+<dataHolder inputId="" name="#FF54A7" type="basicType" outId="instances" value="java.util.List" id="instances"/>
+<dataHolder inputId="" name="#E9E371" type="dataModelerEntry" outId="processData" value="org.jbpm.process.migration.ProcessData" id="processData"/>
+</form>
