@@ -30,19 +30,18 @@ public class ProcessData implements java.io.Serializable {
     public ProcessData() {
     }
 
-    public ProcessData(String deploymentId, Long processInstanceId, String toProcessId, String toDeploymentId, String fromProcessId) {
+    public ProcessData(String deploymentId, String toDeploymentId, Long processInstanceId, String toProcessId) {
         this.deploymentId = deploymentId;
         this.processInstanceId = processInstanceId;
         this.toProcessId = toProcessId;
         this.toDeploymentId = toDeploymentId;
-        this.fromProcessId = fromProcessId;
     }
 
-    public ProcessData(String deploymentId, Long processInstanceId, String toProcessId, String toDeploymentId) {
+    public ProcessData(String deploymentId, String toDeploymentId, String fromProcessId, String toProcessId) {
         this.deploymentId = deploymentId;
-        this.processInstanceId = processInstanceId;
-        this.toProcessId = toProcessId;
         this.toDeploymentId = toDeploymentId;
+        this.toProcessId = toProcessId;
+        this.fromProcessId = fromProcessId;
     }
 
     public String getDeploymentId() {

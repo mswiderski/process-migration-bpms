@@ -154,7 +154,7 @@ public class MigrationManager {
 	        
 	        for (ProcessInstanceLog log : logs) {
 	            
-	            ProcessData data = new ProcessData(processData.getDeploymentId(), log.getProcessInstanceId(), processData.getToProcessId(), processData.getToDeploymentId());
+	            ProcessData data = new ProcessData(processData.getDeploymentId(), processData.getToDeploymentId(), log.getProcessInstanceId(), processData.getToProcessId());
 	            result.add(data);
 	        }
 	        
