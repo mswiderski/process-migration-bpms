@@ -3,8 +3,16 @@
     <repository>
       <include>true</include>
       <metadata>
+        <id>local</id>
+        <url>/home/ibek/.m2/repository</url>
+        <source>LOCAL</source>
+      </metadata>
+    </repository>
+    <repository>
+      <include>true</include>
+      <metadata>
         <id>guvnor-m2-repo</id>
-        <url>file:///Users/maciejswiderski/Development/development-servers/wildfly-8.1.0.Final/bin/repositories/kie</url>
+        <url>http://localhost:8080/business-central/maven2/</url>
         <source>PROJECT</source>
       </metadata>
     </repository>
@@ -14,14 +22,6 @@
         <id>central</id>
         <url>https://repo.maven.apache.org/maven2</url>
         <source>PROJECT</source>
-      </metadata>
-    </repository>
-    <repository>
-      <include>true</include>
-      <metadata>
-        <id>local</id>
-        <url>/Users/maciejswiderski/.m2/repository</url>
-        <source>LOCAL</source>
       </metadata>
     </repository>
   </repositories>

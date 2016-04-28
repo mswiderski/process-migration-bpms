@@ -1,0 +1,7 @@
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<kbase name="mkbase" default="true" eventProcessingMode="stream" equalsBehavior="identity" packages="org.kie.bpms.process_migration_service">
+  <ksession name="mksession" type="stateful" default="true"/>
+</kbase>
+
+</kmodule>
