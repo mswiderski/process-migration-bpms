@@ -1,0 +1,14 @@
+
+<form id="1081048186">
+<property name="name" value="ActiveTask-taskform.form"/>
+<property name="displayMode" value="default"/>
+<property name="status" value="0"/>
+<field position="0" name="startVariableX" type="InputText" id="760506121">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;in_x (startVariableX)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="in_x"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<dataHolder inputId="in_x" name="#E9E371" type="basicType" outId="" value="java.lang.String" id="startVariableX"/>
+</form>

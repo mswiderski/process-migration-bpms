@@ -210,7 +210,7 @@
 </style>
 <div id="container">
 	<div id="header">
-		New Process Instance: /process-migration-testv1/src/main/resources.SwitchXORGatewayConditions
+		New Process Instance: /process-migration-testv2/src/main/resources.SwitchXORGatewayConditions
 	</div>
 	<div id="content">
 	    <input type="hidden" name="processId" value="${process.id}"/>

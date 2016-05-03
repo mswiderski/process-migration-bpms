@@ -48,18 +48,8 @@
 	function taskFormValidator() {
 		var i=0;
 		var myInputs = new Array();
-					myInputs[i] = document.getElementById("redtask");
-					i++;
-
 
 		var j=0;
-						if(notEmpty(myInputs[j]) && !isAlphanumeric(myInputs[j])) {
-							alert("Please enter valid redtask");
-							myInputs[j].focus();
-							return false;
-						}
-					j++;
-
 		return true;
 	}
 </script>
@@ -210,18 +200,46 @@
 </style>
 <div id="container">
 	<div id="header">
-		New Process Instance: /process-migration-testv1/src/main/resources.SwitchXORGatewayConditions
+		User Task Form: AddInputTaskMapping.ActiveTask
 	</div>
 	<div id="content">
-	    <input type="hidden" name="processId" value="${process.id}"/>
+	    <input type="hidden" name="taskId" value="${task.id}"/>
 		<fieldset>
-            <legend>Process inputs</legend>
-                            		<label for="name">redtask</label>
-                            		<div class="div_checkbox">
-                              		<input name="redtask" type="checkbox" class="checkbox" id="redtask" value="true" />
-                            		</div>
-              	
+            <legend>Task Info</legend>
+            	<label for="name">Owners</label>
+            	<div class="div_checkbox">
+											ibek
+            	
+            	</div>
+            	<label for="name">Actor ID</label>
+            	<div class="div_checkbox"></div>
+            	<label for="name">Group</label>
+            	<div class="div_checkbox"></div>
+            	<label for="name">Skippable</label>
+            	<div class="div_checkbox">true</div>
+            	<label for="name">Priority</label>
+            	<div class="div_checkbox"></div>
+            	<label for="name">Comment</label>
+            	<div class="div_checkbox"></div>
+            <div class="clear"></div>
+          </fieldset>
 
+		<fieldset>
+            <legend>Task Inputs</legend>
+                            		<label for="name">in_x</label>
+                            		<div class="div_checkbox">
+                              		${in_x}
+                            		</div>
+                            		<label for="name">in_y</label>
+                            		<div class="div_checkbox">
+                              		${in_y}
+                            		</div>
+
+            <div class="clear"></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Task Outputs</legend>
           </fieldset>
 	</div>
 	<div id="footer">

@@ -48,13 +48,13 @@
 	function taskFormValidator() {
 		var i=0;
 		var myInputs = new Array();
-					myInputs[i] = document.getElementById("redtask");
+					myInputs[i] = document.getElementById("startVariableX");
 					i++;
 
 
 		var j=0;
 						if(notEmpty(myInputs[j]) && !isAlphanumeric(myInputs[j])) {
-							alert("Please enter valid redtask");
+							alert("Please enter valid startVariableX");
 							myInputs[j].focus();
 							return false;
 						}
@@ -210,15 +210,15 @@
 </style>
 <div id="container">
 	<div id="header">
-		New Process Instance: /process-migration-testv1/src/main/resources.SwitchXORGatewayConditions
+		New Process Instance: /process-migration-testv1/src/main/resources.AddInputTaskMapping
 	</div>
 	<div id="content">
 	    <input type="hidden" name="processId" value="${process.id}"/>
 		<fieldset>
             <legend>Process inputs</legend>
-                            		<label for="name">redtask</label>
-                            		<div class="div_checkbox">
-                              		<input name="redtask" type="checkbox" class="checkbox" id="redtask" value="true" />
+                            		<label for="name">startVariableX</label>
+                            		<div class="div_texbox">
+                              		<input name="startVariableX" type="text" class="textbox" id="startVariableX" value="" />
                             		</div>
               	
 
