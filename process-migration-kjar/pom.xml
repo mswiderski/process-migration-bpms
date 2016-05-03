@@ -8,21 +8,67 @@
   <packaging>kjar</packaging>
   <name>process-migration-kjar</name>
   <description>Process definitions for process instance migration</description>
+  <properties>
+    <jbpm.version>6.4.0.Final-redhat-1</jbpm.version>
+  </properties>
+
   <dependencies>
     <dependency>
-      <groupId>org.kie.bpms</groupId>
-      <artifactId>process-migration-service</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-api</artifactId>
+      <version>${jbpm.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-internal</artifactId>
+      <version>${jbpm.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jbpm</groupId>
+      <artifactId>jbpm-runtime-manager</artifactId>
+      <version>${jbpm.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
         <groupId>org.kie</groupId>
         <artifactId>kie-maven-plugin</artifactId>
-        <version>6.4.0.Final-redhat-1</version>
+        <version>${jbpm.version}</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
   </build>
+  
+  <repositories>
+    <repository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>bpms-product-repository</id>
+      <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-bxms-6.3-build/latest/maven/</url>
+    </repository>
+  </repositories>
+  
+  <pluginRepositories>
+    <pluginRepository>
+      <id>bpms-product-repository</id>
+      <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-bxms-6.3-build/latest/maven/</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>
