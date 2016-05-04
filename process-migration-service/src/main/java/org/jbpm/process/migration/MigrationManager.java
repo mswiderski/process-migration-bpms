@@ -35,9 +35,11 @@ import org.jbpm.runtime.manager.impl.jpa.EntityManagerFactoryManager;
 import org.jbpm.workflow.core.NodeContainer;
 import org.jbpm.workflow.core.impl.NodeImpl;
 import org.jbpm.workflow.core.node.CompositeNode;
+import org.jbpm.workflow.core.node.HumanTaskNode;
 import org.jbpm.workflow.instance.NodeInstanceContainer;
 import org.jbpm.workflow.instance.impl.NodeInstanceImpl;
 import org.jbpm.workflow.instance.impl.WorkflowProcessInstanceImpl;
+import org.jbpm.workflow.instance.node.HumanTaskNodeInstance;
 import org.kie.api.definition.process.Node;
 import org.kie.api.definition.process.WorkflowProcess;
 import org.kie.api.runtime.KieRuntime;
@@ -263,7 +265,7 @@ public class MigrationManager {
 				}
 			}
 			upgradeProcessInstance(extractIfNeeded(current), extractIfNeeded(tobe), 
-					processData.getProcessInstanceId(), processData.getToProcessId(), convertedNodeMapping);
+					processData.getProcessInstanceId(), processData.getToProcessId(), convertedNodeMapping, em);
 			
 			em.flush();
 			em.clear();
@@ -284,7 +286,7 @@ public class MigrationManager {
     		KieRuntime kruntime,
     		long processInstanceId,
     		String processId,
-    		Map<String, String> nodeMapping) {
+    		Map<String, String> nodeMapping, EntityManager em) {
     	if (nodeMapping == null) {
     		nodeMapping = new HashMap<String, String>();
     	}
@@ -300,55 +302,109 @@ public class MigrationManager {
             throw new IllegalArgumentException("Could not find process " + processId);
         }
         if (processInstance.getProcessId().equals(processId)) {
-            return;
+            logger.warn("Source and target process id is exactly the same ({}) it's recommended to use unique process ids", processId);
         }
         synchronized (processInstance) {
         	org.kie.api.definition.process.Process oldProcess = processInstance.getProcess();
 	        processInstance.disconnect();
 	        processInstance.setProcess(oldProcess);
-	        updateNodeInstances(processInstance, nodeMapping, (NodeContainer) process);
+	        updateNodeInstances(processInstance, nodeMapping, (NodeContainer) process, em);
 	        processInstance.setKnowledgeRuntime((InternalKnowledgeRuntime) kruntime);
 	        processInstance.setProcess(process);
 	        processInstance.reconnect();
 		}
     }
     
-    private static void updateNodeInstances(NodeInstanceContainer nodeInstanceContainer, Map<String, String> nodeMapping, NodeContainer nodeContainer) {
+    private static void updateNodeInstances(NodeInstanceContainer nodeInstanceContainer, Map<String, String> nodeMapping, NodeContainer nodeContainer, EntityManager em) {
     	if (nodeMapping == null || nodeMapping.isEmpty()) {
     		return;
     	}
         for (NodeInstance nodeInstance: nodeInstanceContainer.getNodeInstances()) {
+            Long upgradedNodeId = null;
             String oldNodeId = (String) ((NodeImpl) ((org.jbpm.workflow.instance.NodeInstance) nodeInstance).getNode()).getMetaData().get("UniqueId");
             String newNodeId = nodeMapping.get(oldNodeId);
             if (newNodeId == null) {
+                logger.warn("Mapping for node id {} not found", oldNodeId);
                 continue;
             }
-            Long upgradedNodeId = findNodeIfByUniqueId(newNodeId, nodeContainer);
-            if (upgradedNodeId == null) {
+            Node upgradedNode = findNodeByUniqueId(newNodeId, nodeContainer);
+            if (upgradedNode == null) {
             	try {
             		upgradedNodeId = Long.parseLong(newNodeId);
             	} catch (NumberFormatException e) {
             		continue;
             	}
+            } else {
+                upgradedNodeId = upgradedNode.getId();
             }
             
             ((NodeInstanceImpl) nodeInstance).setNodeId(upgradedNodeId);
+            
+            if (upgradedNode != null) {
+                // update log information for new node information
+                Query nodeLogQuery = em.createQuery("update NodeInstanceLog set nodeId = :nodeId, nodeName = :nodeName, nodeType = :nodeType where id in " +
+                        "( select id from NodeInstanceLog nil where nil.nodeId = :oldNodeId and processInstanceId = :processInstanceId "+  
+                        " GROUP BY nil.nodeInstanceId" +
+                        " HAVING sum(nil.type) = 0) and processInstanceId = :processInstanceId ");
+                nodeLogQuery
+                    .setParameter("nodeId", (String) upgradedNode.getMetaData().get("UniqueId"))
+                    .setParameter("nodeName", upgradedNode.getName())
+                    .setParameter("nodeType", upgradedNode.getClass().getSimpleName())
+                    .setParameter("oldNodeId", oldNodeId)
+                    .setParameter("processInstanceId", nodeInstance.getProcessInstance().getId());
+                
+                int nodesUpdated = nodeLogQuery.executeUpdate();
+                logger.info("Mapping: Node instance logs updated = {} for node instance id {}", nodesUpdated, nodeInstance.getId());
+                
+                if (upgradedNode instanceof HumanTaskNode && nodeInstance instanceof HumanTaskNodeInstance) {
+                    
+                    
+                    
+                    Long taskId = (Long) em.createQuery("select id from TaskImpl where workItemId = :workItemId")
+                                                        .setParameter("workItemId", ((HumanTaskNodeInstance) nodeInstance).getWorkItemId())
+                                                        .getSingleResult();
+                    String name = (String)((HumanTaskNode) upgradedNode).getWork().getParameter("TaskName");
+                    String description = (String)((HumanTaskNode) upgradedNode).getWork().getParameter("Description");
+                    
+                    // update task audit instance log with new deployment and process id
+                    Query auditTaskLogQuery = em.createQuery("update AuditTaskImpl set name = :name, description = :description where taskId = :taskId");
+                    auditTaskLogQuery
+                        .setParameter("name", name)
+                        .setParameter("description", description)
+                        .setParameter("taskId", taskId);
+                    
+                    int auditTaskUpdated = auditTaskLogQuery.executeUpdate();
+                    logger.info("Mapping: Task audit updated = {} for task id {}", auditTaskUpdated, taskId);
+                    
+                    // update task  instance log with new deployment and process id
+                    Query taskLogQuery = em.createQuery("update TaskImpl set name = :name, description = :description where id = :taskId");
+                    taskLogQuery
+                    .setParameter("name", name)
+                    .setParameter("description", description)
+                    .setParameter("taskId", taskId);
+                    
+                    int taskUpdated = taskLogQuery.executeUpdate();
+                    logger.info("Mapping: Task updated = {} for task id {}", taskUpdated, taskId);
+                    
+                }
+            }
+            
             if (nodeInstance instanceof NodeInstanceContainer) {
-            	updateNodeInstances((NodeInstanceContainer) nodeInstance, nodeMapping, nodeContainer);
+            	updateNodeInstances((NodeInstanceContainer) nodeInstance, nodeMapping, nodeContainer, em);
             }
         }
 
     }
     
-    private static Long findNodeIfByUniqueId(String uniqueId, NodeContainer nodeContainer) {
-    	Long result = null;
+    private static Node findNodeByUniqueId(String uniqueId, NodeContainer nodeContainer) {
+    	Node result = null;
     	
     	for (Node node : nodeContainer.getNodes()) {
     		if (uniqueId.equals(node.getMetaData().get("UniqueId"))) {
-    			return node.getId();
+    			return node;
     		}
     		if (node instanceof NodeContainer) {
-    			result = findNodeIfByUniqueId(uniqueId, (NodeContainer) node);
+    			result = findNodeByUniqueId(uniqueId, (NodeContainer) node);
     			if (result != null) {
     				return result;
     			}

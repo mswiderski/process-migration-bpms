@@ -11,11 +11,4 @@
     <module>process-migration-kjar</module>
     <module>process-migration-service</module>
   </modules>
-  <repositories>
-    <repository>
-      <id>guvnor-m2-repo</id>
-      <name>Guvnor M2 Repo</name>
-      <url>file:///Users/maciejswiderski/Development/development-servers/wildfly-8.1.0.Final/bin/repositories/kie</url>
-    </repository>
-  </repositories>
 </project>
