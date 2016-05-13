@@ -363,7 +363,7 @@ public class MigrationManager {
                     Long taskId = (Long) em.createQuery("select id from TaskImpl where workItemId = :workItemId")
                                                         .setParameter("workItemId", ((HumanTaskNodeInstance) nodeInstance).getWorkItemId())
                                                         .getSingleResult();
-                    String name = (String)((HumanTaskNode) upgradedNode).getWork().getParameter("TaskName");
+                    String name = (String)((HumanTaskNode) upgradedNode).getName();
                     String description = (String)((HumanTaskNode) upgradedNode).getWork().getParameter("Description");
                     
                     // update task audit instance log with new deployment and process id

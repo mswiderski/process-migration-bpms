@@ -43,7 +43,7 @@ public class PerformMigrationHandler implements WorkItemHandler {
         }
         
 		List<NodeMapping> nodeMapping = new ArrayList<NodeMapping>();
-		Map<String, String>[] inNodeMapping = (Map<String, String>[]) workItem.getParameter("in_nodemapping");
+		List<Map<String, String>> inNodeMapping = (List<Map<String, String>>) workItem.getParameter("in_nodemapping");
 		logger.debug("Migration::Node mapping provided {}", (Object) inNodeMapping);
 		if (inNodeMapping != null) {
 			for (Map<String, String> inputMapping : inNodeMapping) {

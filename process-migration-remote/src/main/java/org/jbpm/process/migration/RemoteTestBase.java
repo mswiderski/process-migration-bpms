@@ -8,13 +8,7 @@ import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.kie.api.runtime.process.ProcessInstance;
 import org.kie.api.task.model.Task;
-import org.kie.remote.jaxb.gen.JaxbStringObjectPairArray;
-import org.kie.remote.jaxb.gen.JaxbWrapperType;
-import org.kie.remote.jaxb.gen.util.JaxbStringObjectPair;
 import org.kie.remote.jaxb.gen.util.JaxbUnknownAdapter;
-import org.kie.services.client.serialization.jaxb.impl.JaxbPaginatedList;
-
-import static org.kie.remote.client.jaxb.ConversionUtil.convertMapToJaxbStringObjectPairArray;
 
 public class RemoteTestBase {
 
@@ -33,7 +27,6 @@ public class RemoteTestBase {
     public static final String PASSWORD = "ibek1234-";
     
     public RemoteTestBase() {
-        Map<String, String>[] a = new Map[1];
         migration = new RESTClient(DEPID_MIGRATION, USERNAME, PASSWORD);
         testv1 = new RESTClient(DEPID_TESTV1, USERNAME, PASSWORD);
         testv2 = new RESTClient(DEPID_TESTV2, USERNAME, PASSWORD);
@@ -83,25 +76,12 @@ public class RemoteTestBase {
         srcTarget.put("nodemap_sourceNodeId", sourceNodeId);
         srcTarget.put("nodemap_targetNodeId", targetNodeId);
         
-        /**List<Object> serializedList = new ArrayList<Object>(1);
-        serializedList.add(convertMapToJaxbStringObjectPairArray(srcTarget));
-        
-        // convert to JaxbListWrapper
-        org.kie.remote.jaxb.gen.List listWrapper = new org.kie.remote.jaxb.gen.List();
-        listWrapper.getElements().addAll(serializedList);
-        listWrapper.setType(JaxbWrapperType.ARRAY);
-        listWrapper.setComponentType(JaxbStringObjectPairArray.class.getCanonicalName());
-        
-        mapping.put("out_mapping", listWrapper);*/
-        
         JaxbUnknownAdapter adapter = new JaxbUnknownAdapter();
         
-        Map<String, Object>[] marray = new Map[1];
-        marray[0] = srcTarget;
-        org.kie.remote.jaxb.gen.List marshalledArray = null;
+        List<Map<String, Object>> marray = new ArrayList<Map<String,Object>>();
+        marray.add(srcTarget);
         try {
-            marshalledArray = (org.kie.remote.jaxb.gen.List) adapter.marshal(marray);
-            mapping.put("out_mapping", marshalledArray);
+            mapping.put("out_mapping", adapter.marshal(marray));
         } catch (Exception e) {
             e.printStackTrace();
         }
