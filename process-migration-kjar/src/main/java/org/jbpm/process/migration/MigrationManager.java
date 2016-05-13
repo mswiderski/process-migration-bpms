@@ -152,7 +152,7 @@ public class MigrationManager {
 	        
 	        JPAAuditLogService auditService = new JPAAuditLogService(emf);
 	        
-	        List<ProcessInstanceLog> logs = auditService.findProcessInstances(processData.getFromProcessId());
+	        List<ProcessInstanceLog> logs = auditService.findActiveProcessInstances(processData.getFromProcessId());
 	        
 	        for (ProcessInstanceLog log : logs) {
 	            

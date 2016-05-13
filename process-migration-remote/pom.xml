@@ -3,46 +3,43 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.kie.bpms</groupId>
-  <artifactId>process-migration-kjar</artifactId>
+  <artifactId>process-migration-remote</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>kjar</packaging>
-  <name>process-migration-kjar</name>
-  <description>Process definitions for process instance migration</description>
-  <properties>
-    <jbpm.version>6.3.0.Final-redhat-5</jbpm.version>
-  </properties>
-
+  <packaging>jar</packaging>
+  <name>process-migration-remote</name>
+  
+  <parent>
+    <groupId>org.kie</groupId>
+    <artifactId>kie-parent-with-dependencies</artifactId>
+    <version>6.3.0.Final-redhat-5</version>
+  </parent>
+  
   <dependencies>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-core</artifactId>
+    </dependency>
+    
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-api</artifactId>
-      <version>${jbpm.version}</version>
-      <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>org.kie.remote</groupId>
+      <artifactId>kie-remote-client</artifactId>
+    </dependency>
+    
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-internal</artifactId>
-      <version>${jbpm.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jbpm</groupId>
-      <artifactId>jbpm-runtime-manager</artifactId>
-      <version>${jbpm.version}</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.kie</groupId>
-        <artifactId>kie-maven-plugin</artifactId>
-        <version>${jbpm.version}</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
   
   <repositories>
     <repository>
@@ -65,10 +62,4 @@
     </repository>
   </repositories>
   
-  <pluginRepositories>
-    <pluginRepository>
-      <id>bpms-product-repository</id>
-      <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-bxms-6.2-build/latest/maven/</url>
-    </pluginRepository>
-  </pluginRepositories>
 </project>
