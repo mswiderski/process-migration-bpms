@@ -7,7 +7,7 @@ import org.kie.api.runtime.manager.audit.ProcessInstanceLog;
 import org.kie.api.runtime.process.ProcessInstance;
 import org.kie.api.task.model.Task;
 
-public class RemoveNonActiveTask extends RemoteTestBase {
+public class RemoveNonActiveTaskTest extends RemoteTestBase {
 
     private static final String PROCESS_ID_V1 = "process-migration-testv1.RemoveNonActiveTask";
     private static final String PROCESS_ID_V2 = "process-migration-testv2.RemoveNonActiveTask";

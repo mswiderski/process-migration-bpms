@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.manager.RuntimeEngine;
@@ -91,6 +92,10 @@ public class RESTClient {
     
     public ProcessInstance startProcess(String processId) {
         return kieSession.startProcess(processId);
+    }
+    
+    public ProcessInstance startProcess(String processId, Map<String, Object> params) {
+        return kieSession.startProcess(processId, params);
     }
     
     public ProcessInstance getProcessInstance(long processInstanceId) {
