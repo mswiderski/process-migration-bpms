@@ -342,10 +342,10 @@ public class MigrationManager {
             
             if (upgradedNode != null) {
                 // update log information for new node information
-                Query nodeLogQuery = em.createQuery("update NodeInstanceLog set nodeId = :nodeId, nodeName = :nodeName, nodeType = :nodeType where id in " +
-                        "( select id from NodeInstanceLog nil where nil.nodeId = :oldNodeId and processInstanceId = :processInstanceId "+  
-                        " GROUP BY nil.nodeInstanceId" +
-                        " HAVING sum(nil.type) = 0) and processInstanceId = :processInstanceId ");
+                Query nodeLogQuery = em.createQuery("update NodeInstanceLog set nodeId = :nodeId, nodeName = :nodeName, nodeType = :nodeType where nodeInstanceId in " + 
+                    "( select nodeInstanceId from NodeInstanceLog nil where nil.nodeId = :oldNodeId and processInstanceId = :processInstanceId " + 
+                    " GROUP BY nil.nodeInstanceId" + 
+                    " HAVING sum(nil.type) = 0) and processInstanceId = :processInstanceId");
                 nodeLogQuery
                     .setParameter("nodeId", (String) upgradedNode.getMetaData().get("UniqueId"))
                     .setParameter("nodeName", upgradedNode.getName())
