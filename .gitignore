@@ -6,6 +6,7 @@ bin/
 /.*
 !.gitignore
 /nbproject
+/.project
 /*.ipr
 /*.iws
 /*.iml
