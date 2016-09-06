@@ -316,16 +316,13 @@ public class MigrationManager {
     }
     
     private static void updateNodeInstances(NodeInstanceContainer nodeInstanceContainer, Map<String, String> nodeMapping, NodeContainer nodeContainer, EntityManager em) {
-    	if (nodeMapping == null || nodeMapping.isEmpty()) {
-    		return;
-    	}
+    	
         for (NodeInstance nodeInstance: nodeInstanceContainer.getNodeInstances()) {
             Long upgradedNodeId = null;
             String oldNodeId = (String) ((NodeImpl) ((org.jbpm.workflow.instance.NodeInstance) nodeInstance).getNode()).getMetaData().get("UniqueId");
             String newNodeId = nodeMapping.get(oldNodeId);
             if (newNodeId == null) {
-                logger.warn("Mapping for node id {} not found", oldNodeId);
-                continue;
+                newNodeId = oldNodeId;
             }
             Node upgradedNode = findNodeByUniqueId(newNodeId, nodeContainer);
             if (upgradedNode == null) {
