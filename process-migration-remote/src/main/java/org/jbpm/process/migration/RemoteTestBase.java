@@ -1,13 +1,17 @@
 package org.jbpm.process.migration;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.assertj.core.api.Assertions;
+import org.kie.api.runtime.manager.audit.ProcessInstanceLog;
 import org.kie.api.runtime.process.ProcessInstance;
+import org.kie.api.task.model.Status;
 import org.kie.api.task.model.Task;
+import org.kie.api.task.model.TaskSummary;
 import org.kie.remote.jaxb.gen.util.JaxbUnknownAdapter;
 
 public class RemoteTestBase {
@@ -87,6 +91,29 @@ public class RemoteTestBase {
         }
         
         return mapping;
+    }
+    
+    protected void assertTaskAndComplete(RESTClient client, String processId, Long processInstanceId, String taskName) {
+        List<TaskSummary> tasks = client.getTaskService().getTasksByStatusByProcessInstanceId(processInstanceId, Arrays.asList(Status.Reserved), "en-UK");
+        Assertions.assertThat(tasks).isNotNull();
+        Assertions.assertThat(tasks.size()).isEqualTo(1);
+        
+        TaskSummary task = tasks.get(0);
+        Assertions.assertThat(task).isNotNull();
+        Assertions.assertThat(task.getProcessId()).isEqualTo(processId);
+        Assertions.assertThat(task.getDeploymentId()).isEqualTo(client.getDeploymentId());
+        Assertions.assertThat(task.getName()).isEqualTo(taskName);
+        
+        client.getTaskService().start(task.getId(), "john");
+        client.getTaskService().complete(task.getId(), "john", null);
+    }
+
+    protected void assertProcessInstance(RESTClient client, String processId, long processInstanceId, int status) {
+        ProcessInstanceLog instance = client.getAuditService().findProcessInstance(processInstanceId);
+        Assertions.assertThat(instance).isNotNull();
+        Assertions.assertThat(instance.getProcessId()).isEqualTo(processId);
+        Assertions.assertThat(instance.getExternalId()).isEqualTo(client.getDeploymentId());
+        Assertions.assertThat(instance.getStatus().intValue()).isEqualTo(status);
     }
     
 }
