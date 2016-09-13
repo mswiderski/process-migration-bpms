@@ -62,12 +62,17 @@ public class RESTClient {
                 .addUrl(url)
                 .addUserName(username)
                 .addPassword(password)
-                .addExtraJaxbClasses(classes);
+                .addExtraJaxbClasses(classes)
+                .addTimeout(60);
         runtimeEngine = builder.build();
         kieSession = runtimeEngine.getKieSession();
         taskService = runtimeEngine.getTaskService();
         auditService = runtimeEngine.getAuditService();
         remoteTaskService = ((RemoteRuntimeEngine) runtimeEngine).getRemoteTaskService();
+    }
+    
+    public String getDeploymentId() {
+        return deploymentId;
     }
     
     public AuditService getAuditService() {

@@ -12,6 +12,9 @@ public class RemoveNonActiveTaskTest extends RemoteTestBase {
     private static final String PROCESS_ID_V1 = "process-migration-testv1.RemoveNonActiveTask";
     private static final String PROCESS_ID_V2 = "process-migration-testv2.RemoveNonActiveTask";
 
+    private static final String PROCESS2_ID_V1 = "process-migration-testv1.RemoveNonActiveBeforeTask";
+    private static final String PROCESS2_ID_V2 = "process-migration-testv2.RemoveNonActiveBeforeTask";
+
     @Test
     public void testSingleMigration() {
         ProcessInstance piv1 = testv1.startProcess(PROCESS_ID_V1);
@@ -41,6 +44,24 @@ public class RemoveNonActiveTaskTest extends RemoteTestBase {
         Assertions.assertThat(pil).isNotNull();
         Assertions.assertThat(pil.getStatus()).isEqualTo(ProcessInstance.STATE_COMPLETED);
         
+    }
+    
+    @Test
+    public void testRemoveNonActiveBeforeActiveTask() {
+        
+        ProcessInstance piv1 = testv1.startProcess(PROCESS2_ID_V1);
+        long pid = piv1.getId();
+        Assertions.assertThat(piv1.getProcessId()).isEqualTo(PROCESS2_ID_V1);
+        Assertions.assertThat(piv1.getState()).isEqualTo(ProcessInstance.STATE_ACTIVE);
+        
+        assertTaskAndComplete(testv1, PROCESS2_ID_V1, piv1.getId(), "Active Task");
+        
+        migrateSingleProcessInstance(DEPID_TESTV1, DEPID_TESTV2, pid, PROCESS2_ID_V2);
+        
+        assertProcessInstance(testv2, PROCESS2_ID_V2, piv1.getId(), ProcessInstance.STATE_ACTIVE);    
+
+        assertTaskAndComplete(testv2, PROCESS2_ID_V2, piv1.getId(), "Non-active Task");                
+        assertProcessInstance(testv2, PROCESS2_ID_V2, piv1.getId(), ProcessInstance.STATE_COMPLETED);
     }
     
 }
